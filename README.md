@@ -4,6 +4,11 @@ This repository contains an implementation of Vision Transformers (ViT) from scr
 
 ### Model Architecture
 
+The architecture below shows the components of the Vision Tranformer model used for image classification.
+
+![Image Classification Vision Transformer Model](https://github.com/rohitmurali8/ViT_from_Scratch/blob/master/ViT.png)
+
+Vision Transformers (ViTs) primarily use only the encoder part of the original Transformer architecture because of the nature of the image data and the task at hand—image classification, rather than sequence generation, which is the typical task for the original Transformer model. The purpose of the decoder in a traditional Transformer is to produce output sequences (e.g., in machine translation, the decoder generates a translation of the input sentence). However, for image classification, the task is to map the input image (or patch sequence) to a fixed output label (like a class). While Vision Transformers typically use only the encoder for classification tasks, the decoder can be useful for other vision tasks like image generation (e.g., in a generative transformer model), image segmentation, or image captioning, where the task involves producing a sequence of outputs rather than a single class label. 
 
 ### Project Overview
 
@@ -18,7 +23,7 @@ The Vision Transformer model consists of the following components:
 
 - **Positional Encoding**: Positional encoding allows the model to understand where patch in the image is placed. The positional encoding value is added to the input which is patchified, linearly mapped and padded with the classification token before passing it to the transformer encoder. It is suggested to have sine and cosine wave values as positional embeddings. The index of the patches or words in a sequence are not used as positional embeddings because depending on the length of the sequence those values can become arbitralily large. Positional encoding adds high-frequency values to the first dimensions and low-frequency values to the latter dimensions. This positional embedding is a function of the number of elements in the sequence and the dimensionality of each element. Thus, it is always a 2-dimensional tensor or “rectangle”. Here’s a simple function that, given the number of tokens and the dimensionality of each of them, outputs a matrix where each coordinate (i,j) is the value to be added to token i in dimension j.In each sequence, for token i we add to its j-th coordinate the following value:
 
-![Representation of the poositional encoding values]()
+![Representation of the poositional encoding values](https://github.com/rohitmurali8/ViT_from_Scratch/blob/master/Positional_Encoding.png)
 
 - **Multi-Headed Self Attention (MHA)**: For a single image, each patch needs to be updated based on some similarity measure with the other patches. We do so by linearly mapping each patch (that is now an 8-dimensional vector in our example) to 3 distinct vectors: q, k, and v (query, key, value). Then, for a single patch, we are going to compute the dot product between its q vector with all of the k vectors, divide by the square root of the dimensionality of these vectors, softmax these so-called attention cues, and finally multiply each attention cue with the v vectors associated with the different k vectors and sum all up. In this way, each patch assumes a new value that is based on its similarity (after the linear mapping to q, k, and v) with other patches. This whole procedure, however, is carried out H times on H sub-vectors of our current 8-dimensional patches, where H is the number of Heads.
 
