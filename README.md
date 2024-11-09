@@ -57,24 +57,9 @@ Requirements
 
 You can install the necessary Python packages using pip:
 
+```
 pip install torch torchvision numpy matplotlib tqdm
-
-Setup & Installation
-
-    Clone this repository:
-
-git clone https://github.com/rohitmurali8/vision-transformers-from-scratch-pytorch.git
-cd vision-transformers-from-scratch-pytorch
-
-    Install the dependencies:
-
-pip install -r requirements.txt
-
-References
-
-    Original Vision Transformer paper
-    PyTorch documentation
-    Medium guide by Brian Pulfer
+```
 
 License
 
